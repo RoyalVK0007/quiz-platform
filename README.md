@@ -131,11 +131,11 @@ quiz-platform/
 
 ## Version History
 
-### v2.0 Beta - Security & Anti-Cheating (Open for Testing)
+### v2.2 Beta - Enhanced Admin Access (Open for Testing)
 - **Comprehensive Anti-Cheating System**: Fullscreen mode, copy protection, tab monitoring
 - **Screenshot Prevention**: Blocks screenshot attempts and print screen functionality
 - **Developer Tools Blocking**: Prevents access to browser dev tools during quiz
-- **Universal Admin Access**: Ctrl+Alt+A shortcut works from any page (login, quiz, results, leaderboard)
+- **Universal Admin Access**: Ctrl+Alt+A shortcut + Admin Panel buttons on all pages
 - **Enhanced Dashboard**: Real-time cheating reports and leaderboard monitoring
 - **Warning System**: Progressive warnings (3 strikes) before violation reporting
 - **Keyboard Shortcuts**: Ctrl+Shift+F for fullscreen re-entry, Ctrl+Alt+A for admin access

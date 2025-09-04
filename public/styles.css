@@ -718,6 +718,25 @@ body.quiz-active::before {
     margin-left: 0.5rem;
 }
 
+/* Admin Button */
+.admin-btn {
+    background: var(--text-light);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    transition: all 0.2s ease;
+}
+
+.admin-btn:hover {
+    background: #475569;
+    transform: translateY(-1px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
