@@ -71,7 +71,7 @@ npm run dev
 4. **View Results**: See your score and leaderboard ranking
 
 ### For Administrators
-1. **Access Admin**: Use Ctrl+Alt+A shortcut (password: admin123)
+1. **Access Admin**: Use Ctrl+Alt+A shortcut (password: admin123) // shortcut not working in beta , will be fixed soon 
 2. **Manage Questions**: Add, edit, or delete quiz questions
 3. **Monitor Users**: View real-time leaderboard and cheating reports
 4. **System Management**: Clear data, change passwords, seed demo content
@@ -131,16 +131,16 @@ quiz-platform/
 
 ## Version History
 
-### v2.2 Beta - Enhanced Admin Access (Open for Testing)
-- **Comprehensive Anti-Cheating System**: Fullscreen mode, copy protection, tab monitoring
+### v2.2 Beta - Enhanced Admin Access (NEED YOUR HELP Testing) 
+- **Comprehensive Anti-Cheating System**: Fullscreen mode ON quiz page use CTRL+SHIFT+F for full screen, copy protection, tab monitoring
 - **Screenshot Prevention**: Blocks screenshot attempts and print screen functionality
 - **Developer Tools Blocking**: Prevents access to browser dev tools during quiz
-- **Universal Admin Access**: Ctrl+Alt+A shortcut + Admin Panel buttons on all pages
+- **Universal Admin Access**: Ctrl+Alt+A shortcut{fixed soon...} + Admin Panel buttons on all pages
 - **Enhanced Dashboard**: Real-time cheating reports and leaderboard monitoring
 - **Warning System**: Progressive warnings (3 strikes) before violation reporting
 - **Keyboard Shortcuts**: Ctrl+Shift+F for fullscreen re-entry, Ctrl+Alt+A for admin access
 - **Live Monitoring**: Auto-refreshing admin dashboard every 30 seconds
-- **Comprehensive Demo Data**: Sample users, scores, and violation reports for testing
+- **Comprehensive Demo Data**: Sample users, scores, and violation reports for testing "( USE SEED DEMO DATA to feed test data)"
 
 ### v1.0 - Core Platform
 - **Interactive Quiz**: Clean, responsive quiz interface
@@ -152,4 +152,4 @@ quiz-platform/
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open source and available under the MIT License. C- royalvk007 2025 ALL rights reserved !
