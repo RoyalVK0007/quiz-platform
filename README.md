@@ -27,13 +27,7 @@ A comprehensive, secure web-based quiz application with advanced anti-cheating m
 - **Cheating Reports**: Detailed violation tracking with admin notifications
 - **Warning System**: Progressive warnings (3 strikes) before reporting
 
-### New Updates (Latest Version)
-- **Hidden Admin Access**: Secret Ctrl+Alt+A shortcut for admin panel
-- **Enhanced Dashboard**: Real-time cheating reports and leaderboard display
-- **Keyboard Shortcuts**: Ctrl+Shift+F for fullscreen re-entry
-- **Improved UX**: Removed fullscreen exit warnings for better experience
-- **Comprehensive Demo Data**: Includes sample users, scores, and violation reports
-- **Live Monitoring**: Auto-refreshing admin dashboard every 30 seconds
+
 
 ## Tech Stack
 
@@ -137,18 +131,24 @@ quiz-platform/
 
 ## Version History
 
-### v2.0 (Latest) - Security & Admin Enhancement
-- Added comprehensive anti-cheating system
-- Implemented hidden admin access with shortcuts
-- Enhanced admin dashboard with real-time monitoring
-- Added fullscreen protection and keyboard shortcuts
-- Improved user experience with smooth animations
+### v2.0 Beta - Security & Anti-Cheating (Open for Testing)
+- **Comprehensive Anti-Cheating System**: Fullscreen mode, copy protection, tab monitoring
+- **Screenshot Prevention**: Blocks screenshot attempts and print screen functionality
+- **Developer Tools Blocking**: Prevents access to browser dev tools during quiz
+- **Universal Admin Access**: Ctrl+Alt+A shortcut works from any page (login, quiz, results, leaderboard)
+- **Enhanced Dashboard**: Real-time cheating reports and leaderboard monitoring
+- **Warning System**: Progressive warnings (3 strikes) before violation reporting
+- **Keyboard Shortcuts**: Ctrl+Shift+F for fullscreen re-entry, Ctrl+Alt+A for admin access
+- **Live Monitoring**: Auto-refreshing admin dashboard every 30 seconds
+- **Comprehensive Demo Data**: Sample users, scores, and violation reports for testing
 
 ### v1.0 - Core Platform
-- Basic quiz functionality
-- Simple admin panel
-- Local storage implementation
-- Responsive design
+- **Interactive Quiz**: Clean, responsive quiz interface
+- **Score Tracking**: Real-time score calculation and leaderboard system
+- **User Authentication**: Secure login system with session management
+- **Admin Panel**: Question management and user tracking
+- **Local Storage**: Persistent data storage in browser
+- **Responsive Design**: Desktop and mobile compatibility
 
 ## License
 

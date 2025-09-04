@@ -47,11 +47,15 @@
   
   // Admin panel shortcut
   document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.altKey && e.key === 'a') {
+    if (e.ctrlKey && e.altKey && (e.key === 'a' || e.key === 'A')) {
       e.preventDefault();
+      console.log('Admin shortcut triggered');
       window.location.href = 'admin-login.html';
     }
   });
+  
+  // Show shortcut hint in console
+  console.log('Admin shortcut: Ctrl+Alt+A');
 </script>
 </body>
 </html>

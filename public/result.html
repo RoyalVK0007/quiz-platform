@@ -37,6 +37,17 @@
   function restartQuiz() {
     window.location.href = "quiz.html";
   }
+  
+  // Admin panel shortcut
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.altKey && (e.key === 'a' || e.key === 'A')) {
+      e.preventDefault();
+      console.log('Admin shortcut triggered from results');
+      window.location.href = 'admin-login.html';
+    }
+  });
+  
+  console.log('Admin shortcut: Ctrl+Alt+A');
 </script>
 
 </body>

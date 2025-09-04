@@ -124,7 +124,7 @@ setTimeout(() => {
   }
 }, 1000);
 
-// Fullscreen re-entry shortcut
+// Fullscreen re-entry shortcut and admin access
 document.addEventListener('keydown', function(e) {
   if (e.ctrlKey && e.shiftKey && e.key === 'F') {
     e.preventDefault();
@@ -136,6 +136,13 @@ document.addEventListener('keydown', function(e) {
     } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
+  }
+  
+  // Admin panel shortcut (works even during quiz)
+  if (e.ctrlKey && e.altKey && (e.key === 'a' || e.key === 'A')) {
+    e.preventDefault();
+    console.log('Admin shortcut triggered from quiz');
+    window.location.href = 'admin-login.html';
   }
 });
 

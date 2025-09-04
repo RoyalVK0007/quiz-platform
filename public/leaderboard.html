@@ -52,7 +52,17 @@
     `).join('');
   }
   
+  // Admin panel shortcut
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.altKey && (e.key === 'a' || e.key === 'A')) {
+      e.preventDefault();
+      console.log('Admin shortcut triggered from leaderboard');
+      window.location.href = 'admin-login.html';
+    }
+  });
+  
   loadLeaderboard();
+  console.log('Admin shortcut: Ctrl+Alt+A');
 </script>
 </body>
 </html>

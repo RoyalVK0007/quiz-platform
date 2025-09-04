@@ -18,3 +18,15 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 if (localStorage.getItem('isLoggedIn') === 'true') {
     window.location.href = 'index.html';
 }
+
+// Admin panel shortcut
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.altKey && (e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        console.log('Admin shortcut triggered');
+        window.location.href = 'admin-login.html';
+    }
+});
+
+// Show shortcut hint in console
+console.log('Admin shortcut: Ctrl+Alt+A');
