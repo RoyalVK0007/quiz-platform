@@ -1,50 +1,345 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - Add Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Platform - Admin</title>
   <link rel="stylesheet" href="styles.css">
-  <script>
-    window.onload = function() {
-      let password = prompt("Enter Admin Password:");
-      const correctPassword = "admin123";
-
-      if (password !== correctPassword) {
-        alert("Incorrect Password! Redirecting...");
-        window.location.href = "index.html";
-      }
-    };
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="admin-header">
+  <h1>🔧 Admin Panel</h1>
   <button id="logout-btn" onclick="logout()">Logout</button>
-  <h1>Admin Panel</h1>
-  <form id="question-form">
-    <label>Question:</label>
-    <input type="text" id="question" required><br><hr>
-    <label>A:</label> <input type="text" id="option1" required><br>
-    <label>B:</label> <input type="text" id="option2" required><br>
-    <label>C:</label> <input type="text" id="option3" required><br>
-    <label>D:</label> <input type="text" id="option4" required><br><hr>
-    <label>Correct Answer:</label>
-    <select id="answer">
-      <option value="1">A</option>
-      <option value="2">B</option>
-      <option value="3">C</option>
-      <option value="4">D</option>
-    </select><br><hr>
-    <button type="submit">Add</button>
-  </form>
+</div>
 
-  <h2>Questions List</h2>
-  <ul id="questions-list"></ul>
+<div class="admin-layout">
+  <div class="admin-left">
+    <h3>Questions List</h3>
+    <div id="questions-list"></div>
+  </div>
+  
+  <div class="admin-middle">
+    <form id="question-form">
+      <h3 id="form-title">Add New Question</h3>
+      <input type="hidden" id="edit-index" value="-1">
+      
+      <div class="form-group">
+        <label for="question">Question:</label>
+        <input type="text" id="question" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="option1">Option A:</label>
+        <input type="text" id="option1" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="option2">Option B:</label>
+        <input type="text" id="option2" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="option3">Option C:</label>
+        <input type="text" id="option3" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="option4">Option D:</label>
+        <input type="text" id="option4" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="answer">Correct Answer:</label>
+        <select id="answer">
+          <option value="1">A</option>
+          <option value="2">B</option>
+          <option value="3">C</option>
+          <option value="4">D</option>
+        </select>
+      </div>
+      
+      <button type="submit" id="submit-btn">Add Question</button>
+      <button type="button" id="cancel-btn" onclick="cancelEdit()" style="display: none;">Cancel</button>
+    </form>
+  </div>
+  
+  <div class="admin-right">
+    <h3>Actions</h3>
+    <button onclick="seedDemoData()" class="admin-action-btn">🌱 Seed Demo Data</button>
+    <button onclick="clearAllData()" class="admin-action-btn danger">🗑️ Clear All Data</button>
+    <button onclick="clearLeaderboard()" class="admin-action-btn danger">🏆 Clear Leaderboard</button>
+    <button onclick="clearAllQuestions()" class="admin-action-btn danger">❓ Clear Questions</button>
+    <button onclick="changeAdminPassword()" class="admin-action-btn">🔐 Change Password</button>
+    <button onclick="viewCheatingReports()" class="admin-action-btn warning">⚠️ Cheating Reports</button>
+    <a href="index.html" class="admin-action-btn home">Back to Home</a>
+  </div>
+</div>
+
+<div class="admin-bottom">
+  <div class="admin-bottom-left">
+    <h3>⚠️ Cheating Reports</h3>
+    <div id="cheating-reports-list"></div>
+  </div>
+  
+  <div class="admin-bottom-right">
+    <h3>🏆 Leaderboard</h3>
+    <div id="leaderboard-list-admin"></div>
+  </div>
 </div>
 
 <script>
-  function logout() {
-    alert("Logging out...");
-    window.location.href = "index.html";
+  if (localStorage.getItem('isLoggedIn') !== 'true' || localStorage.getItem('isAdmin') !== 'true') {
+    window.location.href = 'admin-login.html';
   }
+  
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('isAdmin');
+    window.location.href = 'login.html';
+  }
+  
+  function clearLeaderboard() {
+    if (confirm('Are you sure you want to clear all leaderboard data? This cannot be undone.')) {
+      localStorage.removeItem('quizScores');
+      alert('Leaderboard cleared successfully!');
+    }
+  }
+  
+  function clearAllData() {
+    if (confirm('This will clear ALL data (questions, leaderboard, etc.). Are you sure?')) {
+      localStorage.removeItem('questions');
+      localStorage.removeItem('quizScores');
+      alert('All data cleared successfully!');
+      loadQuestions();
+    }
+  }
+  
+  function clearAllQuestions() {
+    if (confirm('Are you sure you want to delete all questions? This cannot be undone.')) {
+      localStorage.removeItem('questions');
+      alert('All questions cleared successfully!');
+      loadQuestions();
+    }
+  }
+  
+  function changeAdminPassword() {
+    const newPassword = prompt('Enter new admin password:');
+    if (newPassword && newPassword.length >= 6) {
+      localStorage.setItem('adminPassword', newPassword);
+      alert('Admin password changed successfully!');
+    } else if (newPassword) {
+      alert('Password must be at least 6 characters long.');
+    }
+  }
+  
+  function viewCheatingReports() {
+    try {
+      const reports = JSON.parse(localStorage.getItem('cheatingReports') || '[]');
+      console.log('Cheating reports:', reports);
+      
+      if (reports.length === 0) {
+        alert('No cheating reports found.');
+        return;
+      }
+      
+      // Create a more readable format
+      let reportText = `CHEATING REPORTS (${reports.length} total):\n\n`;
+      
+      reports.forEach((report, index) => {
+        reportText += `--- REPORT ${index + 1} ---\n`;
+        reportText += `User: ${report.user}\n`;
+        reportText += `Email: ${report.email}\n`;
+        reportText += `Warnings: ${report.totalWarnings}\n`;
+        reportText += `Question: ${report.currentQuestion}/${report.totalQuestions}\n`;
+        reportText += `Time: ${new Date(report.reportedAt).toLocaleString()}\n\n`;
+        
+        if (report.warningDetails && report.warningDetails.length > 0) {
+          reportText += 'Warning Details:\n';
+          report.warningDetails.forEach(w => {
+            reportText += `${w.warning}. ${w.reason} (Q${w.questionNumber})\n`;
+          });
+        }
+        
+        reportText += '\n';
+      });
+      
+      // Use confirm dialog for better display
+      if (confirm(reportText + '\nWould you like to clear all reports?')) {
+        localStorage.removeItem('cheatingReports');
+        alert('All cheating reports cleared!');
+      }
+    } catch (error) {
+      console.error('Error viewing cheating reports:', error);
+      alert('Error: ' + error.message);
+    }
+  }
+  
+
+  
+  function seedDemoData() {
+    const demoQuestions = [
+      {
+        question: "What is the capital of France?",
+        options: ["London", "Berlin", "Paris", "Madrid"],
+        answer: "3"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Venus", "Mars", "Jupiter", "Saturn"],
+        answer: "2"
+      },
+      {
+        question: "What is 2 + 2?",
+        options: ["3", "4", "5", "6"],
+        answer: "2"
+      },
+      {
+        question: "Who painted the Mona Lisa?",
+        options: ["Van Gogh", "Picasso", "Leonardo da Vinci", "Michelangelo"],
+        answer: "3"
+      },
+      {
+        question: "What is the largest ocean on Earth?",
+        options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+        answer: "4"
+      }
+    ];
+    
+    const demoScores = [
+      { name: 'Test1', score: 5, total: 5, date: new Date().toISOString() },
+      { name: 'Test2', score: 4, total: 5, date: new Date().toISOString() },
+      { name: 'Test3', score: 3, total: 5, date: new Date().toISOString() }
+    ];
+    
+    const demoCheatingReports = [
+      {
+        user: 'Cheater1',
+        email: 'cheater1@test.com',
+        totalWarnings: 3,
+        warningDetails: [
+          { warning: 1, reason: 'Right-click disabled', timestamp: new Date().toISOString(), questionNumber: 2 },
+          { warning: 2, reason: 'Tab switching detected', timestamp: new Date().toISOString(), questionNumber: 3 },
+          { warning: 3, reason: 'Screenshots disabled', timestamp: new Date().toISOString(), questionNumber: 4 }
+        ],
+        reportedAt: new Date().toISOString(),
+        currentQuestion: 4,
+        totalQuestions: 5
+      },
+      {
+        user: 'Cheater2',
+        email: 'cheater2@test.com',
+        totalWarnings: 3,
+        warningDetails: [
+          { warning: 1, reason: 'Copy shortcuts disabled', timestamp: new Date().toISOString(), questionNumber: 1 },
+          { warning: 2, reason: 'Developer tools disabled', timestamp: new Date().toISOString(), questionNumber: 2 },
+          { warning: 3, reason: 'Task switching disabled', timestamp: new Date().toISOString(), questionNumber: 3 }
+        ],
+        reportedAt: new Date().toISOString(),
+        currentQuestion: 3,
+        totalQuestions: 5
+      }
+    ];
+    
+    if (confirm('This will add demo questions, scores, and cheating reports. Continue?')) {
+      const existingQuestions = JSON.parse(localStorage.getItem('questions') || '[]');
+      const existingScores = JSON.parse(localStorage.getItem('quizScores') || '[]');
+      const existingReports = JSON.parse(localStorage.getItem('cheatingReports') || '[]');
+      
+      localStorage.setItem('questions', JSON.stringify([...existingQuestions, ...demoQuestions]));
+      localStorage.setItem('quizScores', JSON.stringify([...existingScores, ...demoScores]));
+      localStorage.setItem('cheatingReports', JSON.stringify([...existingReports, ...demoCheatingReports]));
+      
+      alert('Demo data added successfully!');
+      loadQuestions();
+      loadCheatingReports();
+      loadLeaderboard();
+    }
+  }
+  
+  function editQuestion(index) {
+    const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+    const question = questions[index];
+    
+    document.getElementById('edit-index').value = index;
+    document.getElementById('question').value = question.question;
+    document.getElementById('option1').value = question.options[0];
+    document.getElementById('option2').value = question.options[1];
+    document.getElementById('option3').value = question.options[2];
+    document.getElementById('option4').value = question.options[3];
+    document.getElementById('answer').value = question.answer;
+    
+    document.getElementById('form-title').textContent = 'Edit Question';
+    document.getElementById('submit-btn').textContent = 'Update Question';
+    document.getElementById('cancel-btn').style.display = 'inline-block';
+  }
+  
+  function deleteQuestion(index) {
+    if (confirm('Are you sure you want to delete this question?')) {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+      questions.splice(index, 1);
+      localStorage.setItem('questions', JSON.stringify(questions));
+      loadQuestions();
+    }
+  }
+  
+  function cancelEdit() {
+    document.getElementById('edit-index').value = '-1';
+    document.getElementById('question-form').reset();
+    document.getElementById('form-title').textContent = 'Add New Question';
+    document.getElementById('submit-btn').textContent = 'Add Question';
+    document.getElementById('cancel-btn').style.display = 'none';
+  }
+  
+  function loadCheatingReports() {
+    const reports = JSON.parse(localStorage.getItem('cheatingReports') || '[]');
+    const container = document.getElementById('cheating-reports-list');
+    
+    if (reports.length === 0) {
+      container.innerHTML = '<div class="no-data">No cheating reports</div>';
+      return;
+    }
+    
+    container.innerHTML = reports.map((report, index) => `
+      <div class="report-item">
+        <strong>${report.user}</strong> - ${report.totalWarnings} warnings<br>
+        <small>Q${report.currentQuestion}/${report.totalQuestions} at ${new Date(report.reportedAt).toLocaleString()}</small>
+      </div>
+    `).join('');
+  }
+  
+  function loadLeaderboard() {
+    const scores = JSON.parse(localStorage.getItem('quizScores') || '[]');
+    const container = document.getElementById('leaderboard-list-admin');
+    
+    if (scores.length === 0) {
+      container.innerHTML = '<div class="no-data">No scores yet</div>';
+      return;
+    }
+    
+    scores.sort((a, b) => b.score - a.score);
+    
+    container.innerHTML = scores.slice(0, 10).map((entry, index) => `
+      <div class="leaderboard-item">
+        <div>
+          <strong>#${index + 1} ${entry.name}</strong><br>
+          <small>${new Date(entry.date).toLocaleDateString()}</small>
+        </div>
+        <div><strong>${entry.score}/${entry.total}</strong></div>
+      </div>
+    `).join('');
+  }
+  
+  // Load data on page load
+  loadCheatingReports();
+  loadLeaderboard();
+  
+  // Refresh data every 30 seconds
+  setInterval(() => {
+    loadCheatingReports();
+    loadLeaderboard();
+  }, 30000);
 </script>
 
 <script src="admin.js"></script>

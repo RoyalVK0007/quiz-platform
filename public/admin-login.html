@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>🔐 Admin Access</h1>
+        <p>Enter admin credentials</p>
+      </div>
+      
+      <form class="login-form" id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminPassword">Admin Password</label>
+          <input type="password" id="adminPassword" name="adminPassword" required>
+        </div>
+        
+        <button type="submit" class="login-btn">Access Admin Panel</button>
+      </form>
+      
+      <div class="login-footer">
+        <a href="index.html" style="color: var(--text-light); text-decoration: none;">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('adminPassword').value;
+      const savedPassword = localStorage.getItem('adminPassword') || 'admin123';
+      
+      if (password === savedPassword) {
+        localStorage.setItem('isAdmin', 'true');
+        window.location.href = 'admin.html';
+      } else {
+        alert('Invalid admin password!');
+      }
+    });
+  </script>
+</body>
+</html>

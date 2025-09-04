@@ -2,26 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Platform - Results</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
-  <h1>Quiz Completed!</h1>
-  <p id="final-score"></p>
-  <button onclick="restartQuiz()">Restart Quiz</button>
+  <button id="logout-btn" onclick="logout()">Logout</button>
+  <h1>🎉 Quiz Completed!</h1>
+  <div class="result" id="final-score"></div>
+  <button onclick="restartQuiz()">Take Quiz Again</button>
+  <a href="leaderboard.html" class="start-btn" style="background: var(--success);">🏆 View Leaderboard</a>
+  <a href="index.html" class="start-btn" style="background: var(--text-light);">Back to Home</a>
 </div>
 
 <script>
-  // Get the score from localStorage and display it
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+  
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    window.location.href = 'login.html';
+  }
+  
   let score = localStorage.getItem("quizScore") || 0;
   let total = localStorage.getItem("totalQuestions") || 0;
 
   document.getElementById("final-score").innerText = `Your Score: ${score} / ${total}`;
 
   function restartQuiz() {
-    window.location.href = "quiz.html"; // Redirect to start quiz again
+    window.location.href = "quiz.html";
   }
 </script>
 

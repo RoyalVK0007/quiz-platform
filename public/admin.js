@@ -9,32 +9,56 @@ document.getElementById("question-form").addEventListener("submit", function(eve
     document.getElementById("option4").value
   ];
   let answer = document.getElementById("answer").value;
+  let editIndex = parseInt(document.getElementById("edit-index").value);
 
   let newQuestion = { question, options, answer };
-
-  // Retrieve existing questions or create empty array
   let storedQuestions = JSON.parse(localStorage.getItem("questions")) || [];
-  storedQuestions.push(newQuestion);
 
-  // Save updated questions list to localStorage
+  if (editIndex >= 0) {
+    storedQuestions[editIndex] = newQuestion;
+    alert("Question Updated!");
+  } else {
+    storedQuestions.push(newQuestion);
+    alert("Question Added!");
+  }
+
   localStorage.setItem("questions", JSON.stringify(storedQuestions));
-
-  alert("Question Added!");
   document.getElementById("question-form").reset();
+  cancelEdit();
   loadQuestions();
 });
 
-// Function to display added questions
 function loadQuestions() {
   let storedQuestions = JSON.parse(localStorage.getItem("questions")) || [];
   let list = document.getElementById("questions-list");
   list.innerHTML = "";
 
+  if (storedQuestions.length === 0) {
+    list.innerHTML = '<p class="no-questions">No questions added yet.</p>';
+    return;
+  }
+
   storedQuestions.forEach((q, i) => {
-    let item = document.createElement("li");
-    item.innerText = `${i + 1}. ${q.question}`;
+    let item = document.createElement("div");
+    item.className = "question-item";
+    item.innerHTML = `
+      <div class="question-number">Q${i + 1}</div>
+      <div class="question-text" onclick="showQuestionDetails(${i})">${q.question}</div>
+      <div class="question-actions">
+        <button onclick="editQuestion(${i})" class="edit-btn">Edit</button>
+        <button onclick="deleteQuestion(${i})" class="delete-btn">Delete</button>
+      </div>
+    `;
     list.appendChild(item);
   });
 }
 
-loadQuestions(); // Load questions on page load
+function showQuestionDetails(index) {
+  const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+  const q = questions[index];
+  const correctLetter = ['A', 'B', 'C', 'D'][q.answer - 1];
+  
+  alert(`Question ${index + 1}:\n\n${q.question}\n\nA) ${q.options[0]}\nB) ${q.options[1]}\nC) ${q.options[2]}\nD) ${q.options[3]}\n\nCorrect Answer: ${correctLetter}`);
+}
+
+loadQuestions();

@@ -1,61 +1,744 @@
-/* General Styling */
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #f8fafc;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --danger: #ef4444;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    min-height: 100vh;
+    color: var(--text);
 }
 
-/* Container */
-.container {
-    max-width: 400px;
+/* Login Page Styles */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.login-card {
     background: white;
-    padding: 20px;
-    margin: 50px auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
 }
 
-/* Heading */
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.login-header p {
+    color: var(--text-light);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.login-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.login-footer {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.login-footer p {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Main Container */
+.container {
+    max-width: 500px;
+    background: white;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: var(--shadow-lg);
+    border-radius: 16px;
+    text-align: center;
+}
+
+/* Headings */
 h1, h2 {
-    color: #333;
+    color: var(--text);
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
 }
 
 /* Buttons */
 button, .start-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 18px;
-    margin: 10px 0;
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0.5rem;
     border: none;
-    background-color: #007BFF;
+    background: var(--primary);
     color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     text-decoration: none;
+    transition: all 0.2s ease;
+    min-width: 120px;
 }
 
 button:hover, .start-btn:hover {
-    background-color: #0056b3;
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.start-btn {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
 }
 
 /* Logout Button */
 #logout-btn {
+    background: var(--danger);
     float: right;
-    background-color: red;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
 }
 
 #logout-btn:hover {
-    background-color: darkred;
+    background: #dc2626;
 }
 
 /* Input Fields */
 input, select {
     width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Quiz Specific Styles */
+#quiz-content {
+    text-align: left;
+    transition: opacity 0.3s ease;
+}
+
+#quiz-content.fade-out {
+    opacity: 0;
+}
+
+#quiz-content.fade-in {
+    opacity: 1;
+}
+
+/* Anti-screenshot protection */
+body.quiz-active {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+}
+
+body.quiz-active::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -1;
+    pointer-events: none;
+}
+
+#question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+#options {
+    margin-bottom: 3rem;
+}
+
+#next-btn {
+    background: var(--success);
+    margin-top: 1rem;
+}
+
+#next-btn:hover {
+    background: #059669;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.option:hover {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.option.selected {
+    border-color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+#result-content {
+    text-align: center;
+}
+
+.result {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--success), #059669);
+    color: white;
+}
+
+/* Admin Panel Styles */
+#questions-list {
+    text-align: left;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+#questions-list li {
+    background: var(--secondary);
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+    list-style: none;
+}
+
+#questions-list li strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Success/Error Messages */
+.success-message {
+    background: var(--success);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.error-message {
+    background: var(--danger);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Leaderboard Styles */
+#leaderboard-list {
+    margin: 2rem 0;
+}
+
+.leaderboard-entry {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+    transition: all 0.2s ease;
+}
+
+.leaderboard-entry.top-three {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0.05));
+}
+
+.rank {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    width: 3rem;
+    text-align: center;
+}
+
+.player-info {
+    flex: 1;
+    margin-left: 1rem;
+}
+
+.player-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.quiz-date {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+.score {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.no-scores {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+    background: var(--secondary);
+    border-radius: 8px;
+}
+
+/* Admin Panel Styles */
+.admin-header {
+    background: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.admin-header h1 {
+    margin: 0;
+    color: var(--primary);
+}
+
+.admin-layout {
+    display: flex;
+    height: calc(100vh - 80px);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.admin-left, .admin-middle, .admin-right {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.admin-left {
+    flex: 1.2;
+    overflow-y: auto;
+}
+
+.admin-middle {
+    flex: 1.3;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-right {
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.admin-middle #question-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.admin-middle .form-group {
+    margin-bottom: 0.8rem;
+}
+
+.admin-middle input, .admin-middle select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.admin-middle label {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.admin-middle h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.admin-middle button {
+    margin-top: auto;
+    margin-bottom: 0.5rem;
+}
+
+.admin-right h3 {
+    margin-top: 0;
+}
+
+.admin-action-btn {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    background: var(--primary);
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.admin-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.admin-action-btn.danger {
+    background: var(--danger);
+}
+
+.admin-action-btn.danger:hover {
+    background: #dc2626;
+}
+
+.admin-action-btn.home {
+    background: var(--text-light);
+}
+
+.admin-action-btn.home:hover {
+    background: #475569;
+}
+
+.admin-action-btn.warning {
+    background: #f59e0b;
+}
+
+.admin-action-btn.warning:hover {
+    background: #d97706;
+}
+
+/* Admin Bottom Section */
+.admin-bottom {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.admin-bottom-left, .admin-bottom-right {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.admin-bottom h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.report-item {
+    background: var(--secondary);
+    border-left: 4px solid var(--danger);
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.report-item strong {
+    color: var(--danger);
+}
+
+.leaderboard-item {
+    background: var(--secondary);
+    border-left: 4px solid var(--success);
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leaderboard-item strong {
+    color: var(--success);
+}
+
+.no-data {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+}
+
+.danger-btn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.danger-btn:hover {
+    background: #dc2626;
+    transform: translateY(-1px);
+}
+
+.question-item {
+    background: var(--secondary);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    padding: 0.6rem;
+    margin: 0.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    min-height: 2.5rem;
+}
+
+.question-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+}
+
+.question-number {
+    background: var(--primary);
+    color: white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    min-width: 1.8rem;
+    text-align: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.question-text {
+    flex: 1;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+    min-width: 0;
+}
+
+.question-text:hover {
+    color: var(--primary);
+}
+
+.question-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.question-actions {
+    display: flex;
+    gap: 0.3rem;
+    flex-shrink: 0;
+}
+
+.edit-btn, .delete-btn {
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 40px;
+}
+
+.edit-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.edit-btn:hover {
+    background: var(--primary-dark);
+}
+
+.delete-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+.no-questions {
+    text-align: center;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 2rem;
+    background: var(--secondary);
+    border-radius: 8px;
+}
+
+#cancel-btn {
+    background: var(--text-light);
+    margin-left: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    #question-text {
+        font-size: 1.1rem;
+    }
+    
+    .option {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Platform - Leaderboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <button id="logout-btn" onclick="logout()">Logout</button>
+  <h1>🏆 Leaderboard</h1>
+  <p>Top quiz performers</p>
+  
+  <div id="leaderboard-list"></div>
+  
+  <a href="index.html" class="start-btn" style="background: var(--text-light); margin-top: 2rem;">Back to Home</a>
+</div>
+
+<script>
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+  
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userEmail');
+    window.location.href = 'login.html';
+  }
+  
+  function loadLeaderboard() {
+    const scores = JSON.parse(localStorage.getItem('quizScores') || '[]');
+    const leaderboardList = document.getElementById('leaderboard-list');
+    
+    if (scores.length === 0) {
+      leaderboardList.innerHTML = '<p class="no-scores">No scores yet. Take a quiz to get started!</p>';
+      return;
+    }
+    
+    scores.sort((a, b) => b.score - a.score);
+    
+    leaderboardList.innerHTML = scores.map((entry, index) => `
+      <div class="leaderboard-entry ${index < 3 ? 'top-three' : ''}">
+        <div class="rank">${index + 1}</div>
+        <div class="player-info">
+          <div class="player-name">${entry.name}</div>
+          <div class="quiz-date">${new Date(entry.date).toLocaleDateString()}</div>
+        </div>
+        <div class="score">${entry.score}/${entry.total}</div>
+      </div>
+    `).join('');
+  }
+  
+  loadLeaderboard();
+</script>
+</body>
+</html>
